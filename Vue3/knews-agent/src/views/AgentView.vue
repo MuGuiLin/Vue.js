@@ -44,9 +44,10 @@ onMounted(async () => {
     const token = await getToken()
     console.log(token)
   } catch (error) {
-    messages.value = JSON.parse(localStorage.getItem('messages') || '[]')
-
-    // useLocalStorage<Array<any>>("messages", []);
+    // messages.value = JSON.parse(localStorage.getItem('messages') || '[]')
+    const msg = useLocalStorage<Array<any>>("messages", []);
+    console.log(typeof msg.value)
+    messages.value = msg.value
 
   }
 })
