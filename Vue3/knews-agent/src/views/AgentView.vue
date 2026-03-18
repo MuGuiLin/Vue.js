@@ -1,21 +1,7 @@
 <script setup lang="ts">
-import "markstream-vue/index.css";
 import { ref, onMounted } from 'vue'
-import MarkdownRender from "markstream-vue";
 import { useLocalStorage } from "@vueuse/core";
 import { getToken } from '@/apis/agent'
-
-
-// const messages = ref([
-//   {
-//     role: 'user',
-//     content: '你是？',
-//   },
-//   {
-//     role: 'assistant',
-//     content: '根据你输入的内容，相关信息主要分为以下几类：  \n1. 前端开发相关包  \n- @muguilin/xf-voice-dictation：用于实现讯飞语音听写功能的依赖库，基于Vue.js 3.x、Vite环境开发，使用前需通过npm安装，还要在iat_xfyun.js文件中配置讯飞的APPID、APIKey和APISecret等API信息。  \n- @muguilin/web-audio-track：可在Web前端通过JS实时获取视音频多媒体声道、音轨、波形数据，还能渲染音频声道峰值电平跳表，支持通过npm或yarn下载，可使用JS Module方式导入或CDN形式引入使用。  \n  \n2. 相关人物相关内容  \n- 克里斯-穆林：NBA名宿，曾在节目中谈及入选梦一队，称自己当时正值巅峰且有过奥运会经历，对此感到荣幸。  \n- 穆祉丞：内娱05后偶像，曾因在音乐节现场喊出专属应援色引发争议，后续回应将“争议”转化为“圈粉现场”。  \n- 穆帅（穆里尼奥）：曾就曼联解雇阿莫林一事发表看法，认为只有当事方清楚具体情况，阿莫林是否公开相关情况由其自己决定。暂时未查询到与“muguilin”相关的公开信息，可能是名称拼写存在误差或相关信息尚未被广泛报道。若您能提供更多背景信息（如行业、地域、相关事件等），我可以帮您进一步核实~'
-//   },
-// ])
 
 const messages: any = ref([])
 const inputValue = ref('')
@@ -44,86 +30,268 @@ onMounted(async () => {
     const token = await getToken()
     console.log(token)
   } catch (error) {
-    // messages.value = JSON.parse(localStorage.getItem('messages') || '[]')
     const msg = useLocalStorage<Array<any>>("messages", []);
-    console.log(typeof msg.value)
     messages.value = msg.value
-
   }
 })
 
-
-
 </script>
 <template>
-  <header>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-content">
+        <button class="back-btn">
+          <span class="back-icon">‹</span>
+        </button>
+        <h1 class="app-title">AI问答助手</h1>
+        <button class="settings-btn">
+          <span class="settings-icon">⚙</span>
+        </button>
+      </div>
+    </header>
 
-  </header>
-  <main>
-    <article class="chat-box">
-      <template v-for="(message, index) in messages" :key="index">
-        <section class="chat user" v-if="message.type === 'user'">
-          <p>{{ message.content }}</p>
-        </section>
-        <section class="chat answer" v-else-if="message.type === 'answer'">
-          <MarkdownRender :content="message.content" :max-live-nodes="0" :render-batch-size="16" :render-batch-delay="8"
-            :is-dark="true" />
-        </section>
-      </template>
-    </article>
-  </main>
-  <footer>
-    <input type="text" v-model="inputValue" placeholder="Type a message" @keyup.enter="sendMessage" />
-    <button @click="sendMessage">Send</button>
-  </footer>
+    <main class="app-main">
+      <section class="hot-topics">
+        <div class="hot-topics-content">
+          <div class="cartoon-characters">
+            <img
+              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20red%20bird%20and%20blue%20robot%20chatting%2C%20cartoon%20style%2C%20white%20background&image_size=square"
+              alt="卡通形象" class="cartoon-img">
+          </div>
+          <div class="hot-topics-text">
+            <h2 class="hot-topics-title">最新热点如下</h2>
+            <p class="hot-topics-subtitle">点击了解更多精彩内容：</p>
+            <div class="hot-topics-tags">
+              <button class="tag">K24新闻进行时</button>
+              <button class="tag">今日早报</button>
+              <button class="tag">全球首个，即将于</button>
+              <button class="tag">全国两会</button>
+              <button class="tag">在上海320米高空全新地标俯瞰，是什</button>
+              <button class="tag">最新科技突破</button>
+              <button class="tag">体育赛事直播</button>
+              <button class="tag">娱乐明星动态</button>
+              <button class="tag">财经市场分析</button>
+              <button class="tag">教育政策解读</button>
+              <button class="tag">健康生活指南</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chat-area">
+        <!-- 聊天消息区域 -->
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-buttons">
+        <button class="footer-btn">我要报料</button>
+        <button class="footer-btn">热门活动</button>
+        <button class="footer-btn">我要看电视</button>
+      </div>
+
+      <div class="input-area">
+        <input type="text" v-model="inputValue" placeholder="请输入您的问题" @keyup.enter="sendMessage" class="message-input">
+        <button class="send-btn" @click="sendMessage">
+          <span class="send-icon">➤</span>
+        </button>
+        <button class="attach-btn">
+          <span class="attach-icon">📎</span>
+        </button>
+      </div>
+
+      <div class="disclaimer">
+        <p>内容由AI生成，仅供参考</p>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <style scoped lang="less">
-header {
-  height: 50px;
-}
-
-.chat-box {
+.app-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
+  height: 100vh;
   background-color: #F5F5F5;
-  overflow-y: auto;
+}
 
-  .chat {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    max-width: 95%;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+.app-header {
+  height: 50px;
+  background-color: #FFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 
-  .chat.user {
-    padding: 1rem;
-    align-self: flex-end;
-    background-color: #28b561;
-    color: #FFF;
+  .back-btn,
+  .settings-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
   }
 
-  .chat.answer {
-    align-self: flex-start;
-    background-color: #FFF;
+  .app-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
   }
 }
 
-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
 
-  input {
-    flex: 1;
-    padding: 0.5rem;
+.hot-topics {
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .hot-topics-content {
+    display: flex;
+    align-items: flex-start;
   }
 
-  button {
-    padding: 0.5rem 1rem;
+  .cartoon-characters {
+    margin-right: 16px;
+  }
+
+  .cartoon-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+
+  .hot-topics-text {
+    flex: 1;
+  }
+
+  .hot-topics-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #333;
+  }
+
+  .hot-topics-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 12px 0;
+  }
+
+  .hot-topics-tags {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+    }
+  }
+
+  .tag {
+    background-color: #FFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #F0F0F0;
+    }
+  }
+}
+
+.chat-area {
+  min-height: 300px;
+}
+
+.app-footer {
+  background-color: #FFF;
+  border-top: 1px solid #E0E0E0;
+  padding: 12px 16px;
+
+  .footer-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12px;
+  }
+
+  .footer-btn {
+    background-color: #FF3B30;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #FF2D1F;
+    }
+  }
+
+  .input-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .message-input {
+    flex: 1;
+    border: 1px solid #E0E0E0;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: #2196F3;
+    }
+  }
+
+  .send-btn,
+  .attach-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 8px;
+  }
+
+  .disclaimer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
   }
 }
 </style>
