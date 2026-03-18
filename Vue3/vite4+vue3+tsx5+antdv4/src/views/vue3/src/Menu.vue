@@ -10,7 +10,7 @@ import {
   AppstoreOutlined
 } from '@ant-design/icons-vue'
 import { vue3Route, useRouter } from '@/router/modules/vue3'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme2'
 const { theme } = useTheme()
 const { push } = useRouter()
 
@@ -149,5 +149,10 @@ onMounted(() => {
       v-model:selectedKeys="state.selectedKeys"
       @click="onClick"
     ></a-menu>
+    <select  class="theme-select" v-model="theme">
+      <option value="light">亮色</option>
+      <option value="dark">暗色</option>
+      <option value="os">跟随系统</option>
+    </select>
   </div>
 </template>
