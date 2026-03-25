@@ -44,15 +44,6 @@ export function getSign(pa: Record<string, any>) {
   };
 }
 
-
-// 原生 cookie 操作函数
-function getCookie(name: string): string {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift() || "";
-  return "";
-}
-
 function setCookie(name: string, value: string, days: number = 31): void {
   const expires = new Date();
   expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -64,7 +55,10 @@ function removeCookie(name: string): void {
 }
 
 export function getToken(TokenKey: string): string {
-  return getCookie(TokenKey);
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${TokenKey}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || "";
+  return "";
 }
 
 export function setToken(TokenKey: string, token: string, expires: number = 31): boolean | undefined {

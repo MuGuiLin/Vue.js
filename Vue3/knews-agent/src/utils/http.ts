@@ -10,17 +10,11 @@ export const http = axios.create({
 // http请求监听
 http.interceptors.request.use(
     (config) => {
-        let params = {};
-        if (config.method === "post") {
-            params = config.data || {};
-        } else {
-            params = config.params || {};
-        }
-        const headerObj = getSign(params);
-
-        for (var key in headerObj) {
-            (config.headers as any)[key] = headerObj[key as keyof typeof headerObj];
-        }
+        const headers = getSign(config.method == "post" ? config.data : config.params);
+        // for (var key in headers) {
+        //     (config.headers as any)[key] = headers[key as keyof typeof headers];
+        // }
+        Object.assign(config.headers, headers)
         const token = getToken("Token");
         if (token) {
             config.headers["Access-Token"] = token;
@@ -35,13 +29,12 @@ http.interceptors.request.use(
 // http响应监听
 http.interceptors.response.use(
     (response) => {
-        // 2xx 范围内的状态码都会触发该函数。
-        // 对响应数据做点什么
+        if (response.status == 200) {
+            return response.data
+        }
         return response
     },
     (error) => {
-        // 超出 2xx 范围的状态码都会触发该函数。
-        // 对响应错误做点什么
         return Promise.reject(error)
     }
 )
