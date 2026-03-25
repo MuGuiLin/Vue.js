@@ -1,13 +1,19 @@
 <script setup lang="ts" name="Footer">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+
 
 const input = ref();
+
 
 const send = () => {
 
     console.log(input.value)
 
 }
+
+onMounted(async () => {
+
+})
 </script>
 
 <template>

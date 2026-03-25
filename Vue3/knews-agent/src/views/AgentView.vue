@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useLocalStorage } from "@vueuse/core";
 import { getToken } from '@/apis/agent'
-
+import { sse } from '@/utils/sse'
 const messages: any = ref([])
 const inputValue = ref('')
 
@@ -29,7 +29,7 @@ onMounted(async () => {
   try {
     const token = await getToken()
     console.log(token)
-    showToast(token);
+    sse();
   } catch (error) {
     const msg = useLocalStorage<Array<any>>("messages", []);
     messages.value = msg.value
