@@ -12,6 +12,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Footer: typeof import('./src/components/Footer.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
+    Render: typeof import('./src/components/Render.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanButton: typeof import('vant/es')['Button']
@@ -20,6 +23,9 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const Footer: typeof import('./src/components/Footer.vue')['default']
+  const Header: typeof import('./src/components/Header.vue')['default']
+  const Render: typeof import('./src/components/Render.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
   const VanButton: typeof import('vant/es')['Button']

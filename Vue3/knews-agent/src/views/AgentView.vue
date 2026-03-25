@@ -39,23 +39,17 @@ onMounted(async () => {
 </script>
 <template>
   <section class="chat-box">
-    <header>
-    </header>
+    <Header />
 
     <main>
       <!-- 聊天消息区域 -->
+      <Render />
     </main>
 
-    <footer class="app-footer">
-      <van-button type="primary" @click="showToast('toast')">button</van-button>
-    </footer>
+    <Footer />
   </section>
 </template>
 
 <style scoped lang="less">
-.chat-box {
-  header {
-    height: 342px;
-  }
-}
+.chat-box {}
 </style>
