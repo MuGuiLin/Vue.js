@@ -1,7 +1,7 @@
 <script setup lang="ts" name="Header">
 import { ref, onMounted } from 'vue'
 
-import { getHotWord } from '@/apis/agent'
+import { getHotWordApi } from '@/apis/agent'
 
 const hotWord = ref([
     {
@@ -28,10 +28,10 @@ const hotWord = ref([
 ])
 
 onMounted(async () => {
-    const res = await getHotWord()
-    if (res && 1000 == (res as any).code) {
-        hotWord.value = (res as any).result.list;
-    }
+    const { list = [] } = await getHotWordApi()
+    console.log('hot', list)
+    hotWord.value = list;
+
 })
 </script>
 
