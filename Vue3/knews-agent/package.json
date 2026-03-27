@@ -1,6 +1,6 @@
 {
   "name": "knews-agent",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -32,9 +32,9 @@
     "@vitejs/plugin-vue-jsx": "^5.1.4",
     "@vue/tsconfig": "^0.8.1",
     "autoprefixer": "^10.4.27",
-    "less": "^4.6.4",
     "npm-run-all2": "^8.0.4",
-    "postcss-px-to-viewport": "^1.1.1",
+    "postcss-nesting": "^14.0.0",
+    "postcss-px-to-viewport-8-plugin": "^1.2.5",
     "prettier": "3.8.1",
     "typescript": "~5.9.3",
     "unplugin-auto-import": "^21.0.0",

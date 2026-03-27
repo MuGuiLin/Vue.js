@@ -1,6 +1,9 @@
 :root,
 :host {
   --van-red: #E81839;
+  --van-blue: #3465B1;
+  --van-gray: #F1F3F8;
+  --van-black: #313234;
 }
 
 *,
@@ -13,6 +16,7 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100vh;
+  background-color: var(--van-gray);
 }
 
 button {

@@ -10,9 +10,16 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <div>
+    <div class="render">
         <MarkdownRender :content="content" />
     </div>
 </template>
 
-<style lang="less" scoped></style>
+<style scoped>
+.render:deep(.markdown-render) {
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--van-black);
+    line-height: 48px;
+}
+</style>

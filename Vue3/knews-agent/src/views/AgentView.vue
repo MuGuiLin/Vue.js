@@ -131,6 +131,17 @@ onMounted(async () => {
   </section>
 </template>
 
-<style scoped lang="less">
-.chat-box {}
+<style scoped>
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+main {
+  flex: 1;
+  padding-bottom: 320px; /* 为固定的 Footer 留出空间 */
+}
 </style>

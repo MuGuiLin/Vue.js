@@ -21,10 +21,11 @@ export class Agent {
     constructor(api: string = BASE.__COZE_URL__ + '/v3/chat') {
         this.api = api;
         this.abort = new AbortController();
-        this.getToken(() => {
-            // 获取 logid 只需初始化执行1次即可！
-            this.variables();
-            this.create()
+        this.getToken(async () => {
+            // 请求获取1次logid
+            await this.variables();
+            // 执行创建1次新对话
+            await this.create();
         });
     }
 
@@ -82,14 +83,15 @@ export class Agent {
         query: Record<string, any> = {},
         onmessage: ((ev: any) => void) | undefined,
         onerror: ((err: any) => number | null | undefined | void) | undefined,
-        onclose: (() => void) | undefined
-
+        onclose: (() => void) | undefined,
+        create: boolean = false
     ) {
         if (!this.api) throw new Error("API endpoint is required");
         if (!this.abort || this.abort.signal.aborted) {
             this.abort = new AbortController();
         }
         await this.getToken();
+        create && await this.create();
 
         // 将this.api转为URL对象，便方在this.api中追加参数
         const url = new URL(this.api);
