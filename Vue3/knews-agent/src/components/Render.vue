@@ -19,7 +19,7 @@ const props = defineProps<Props>();
 .render:deep(.markdown-render) {
     font-weight: 400;
     font-size: 28px;
-    color: var(--van-black);
+    color: var(--kk-black);
     line-height: 48px;
 }
 </style>

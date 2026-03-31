@@ -118,7 +118,7 @@ header {
                     cursor: pointer;
 
                     &.hot {
-                        color: var(--van-red);
+                        color: var(--kk-red);
                     }
                 }
             }

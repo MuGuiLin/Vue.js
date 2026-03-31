@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { showFailToast } from 'vant';
+import { showFailToast } from '@/hooks'
 import { getSign, getToken } from './auth'
 
 export const BASE = {

@@ -50,7 +50,9 @@ export class Agent {
 
     sse(ev: any) {
         // 创建EventSource对象，连接服务器SSE端点
-        const eventSource = new EventSource(this.api);
+        const eventSource = new EventSource(this.api, {
+
+        });
 
         // 监听默认消息事件（服务器发送无event字段的数据）
         eventSource.onmessage = (event) => {
@@ -81,7 +83,7 @@ export class Agent {
     async sendMessage(
         param: any,
         query: Record<string, any> = {},
-        onmessage: ((ev: any) => void) | undefined,
+        onmessage: ((ev: EventSourceMessage) => void) | undefined,
         onerror: ((err: any) => number | null | undefined | void) | undefined,
         onclose: (() => void) | undefined,
         create: boolean = false
@@ -127,7 +129,7 @@ export class Agent {
 
     stop() {
         this.abort && this.abort.abort();
-        // 由于AbortController在abort()是不能恢复的，所以要重新实例化
+        // 由于AbortController在abort()后是不能恢复的，所以要重新实例化
         this.abort = new AbortController();
     }
 

@@ -1,0 +1,1 @@
+export { showFailToast } from 'vant';

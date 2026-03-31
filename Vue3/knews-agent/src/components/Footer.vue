@@ -94,7 +94,7 @@ footer {
         font-weight: 400;
         line-height: 40px;
         font-size: 24px;
-        color: var(--van-blue);
+        color: var(--kk-blue);
         text-align: center;
     }
 }
@@ -129,7 +129,7 @@ footer {
         cursor: pointer;
 
         &.hot {
-            background: var(--van-red);
+            background: var(--kk-red);
             color: #FFFFFF;
         }
     }
@@ -153,7 +153,7 @@ footer {
         input {
             flex: 1;
             font-size: 28px;
-            color: var(--van-black);
+            color: var(--kk-black);
             border: none;
             background: none;
             outline: none;
